@@ -3,26 +3,11 @@ import { NewTodoForm } from './NewTodoForm';
 import { TodoList } from './TodoList';
 import './App.css';
 
-let fakeTodos = [
-  {
-    text: 'Go to the grocery store',
-    isCompleted: true,
-  },
-  {
-    text: 'Learn React',
-    isCompleted: false,
-  },
-  {
-    text: 'Commit Changes',
-    isCompleted: false,
-  }
-]
-
 function App() {
   const [todos, setTodos] = useState([]);
   
   useEffect(() => {
-    fetch('/todos')
+    fetch('/todos')  // gets the latest todos from the backend
       .then(response => response.json())
       .then(todos => setTodos(todos));
   }, []);
@@ -30,15 +15,39 @@ function App() {
   // whenever the components are rendered or updates
   
   const createNewTodo = newTodoText => {
-    alert('Creating new Todo with the text: ' + newTodoText);
+    fetch('/todos', {
+      method: 'post',
+      body: JSON.stringify({ newTodoText }),
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+      .then(response => response.json())
+      .then(updateTodos => setTodos(updateTodos));
   }
 
   const deleteTodo = todoText => {
-    alert('Deleting Todo with the text: ' + todoText);
+    fetch('/todos/delete', {
+      method: 'post',
+      body: JSON.stringify({ text: todoText }),
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+      .then(response => response.json())
+      .then(updateTodos => setTodos(updateTodos));
   }
 
   const completeTodo = todoText => {
-    alert('Marking Todo as completed with the text: ' + todoText);
+    fetch('/todos/complete', {
+      method: 'post',
+      body: JSON.stringify({ text: todoText }),
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+      .then(response => response.json())
+      .then(updateTodos => setTodos(updateTodos));
   }
 
   return (
