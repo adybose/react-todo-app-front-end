@@ -1,24 +1,44 @@
 import React from 'react';
-import logo from './logo.svg';
+import { NewTodoForm } from './NewTodoForm';
+import { TodoList } from './TodoList';
 import './App.css';
 
+let fakeTodos = [
+  {
+    text: 'Go to the grocery store',
+    isCompleted: true,
+  },
+  {
+    text: 'Learn React',
+    isCompleted: false,
+  },
+  {
+    text: 'Commit Changes',
+    isCompleted: false,
+  }
+]
+
 function App() {
+  const createNewTodo = newTodoText => {
+    alert('Creating new Todo with the text: ' + newTodoText);
+  }
+
+  const deleteTodo = todoText => {
+    alert('Deleting Todo with the text: ' + todoText);
+  }
+
+  const completeTodo = todoText => {
+    alert('Marking Todo as completed with the text: ' + todoText);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>React Todo App</h1>
+      <NewTodoForm onClickCreate={createNewTodo} />
+      <TodoList
+        todos={fakeTodos}
+        onCompleteTodo={completeTodo}
+        onDeleteTodo={deleteTodo} />
     </div>
   );
 }
