@@ -1,3 +1,6 @@
+# react-todo-app-front-end
+React front end for the full-stack javascript todo app
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
