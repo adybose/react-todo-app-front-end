@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { NewTodoForm } from './NewTodoForm';
 import { TodoList } from './TodoList';
 import './App.css';
@@ -19,6 +19,16 @@ let fakeTodos = [
 ]
 
 function App() {
+  const [todos, setTodos] = useState([]);
+  
+  useEffect(() => {
+    fetch('/todos')
+      .then(response => response.json())
+      .then(todos => setTodos(todos));
+  }, []);
+  // useEffect hook allows us to dispatch certain actions
+  // whenever the components are rendered or updates
+  
   const createNewTodo = newTodoText => {
     alert('Creating new Todo with the text: ' + newTodoText);
   }
@@ -36,7 +46,7 @@ function App() {
       <h1>React Todo App</h1>
       <NewTodoForm onClickCreate={createNewTodo} />
       <TodoList
-        todos={fakeTodos}
+        todos={todos}
         onCompleteTodo={completeTodo}
         onDeleteTodo={deleteTodo} />
     </div>

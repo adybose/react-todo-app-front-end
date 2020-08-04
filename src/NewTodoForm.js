@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 export const NewTodoForm = ({ onClickCreate }) => {
-    const [inputValue, setInputValue] = useState('');
+    const [inputValue, setInputValue] = useState('');  // useState hook to setInputValue to inputValue
     return (
         <div>
             <input
